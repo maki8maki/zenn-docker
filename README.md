@@ -1,1 +1,1 @@
-# zenn-docker
+# Docker image for Zenn CLI
