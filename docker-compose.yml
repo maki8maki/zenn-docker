@@ -2,7 +2,7 @@ services:
   zenn:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_simple
     ports:
       - "8000:8000"
     volumes:
