@@ -19,6 +19,9 @@ jobs:
         arch:
           - amd64
           - arm64
+        type:
+          - simple
+          - textlint
     steps:
       - uses: actions/checkout@v4
         with:
@@ -50,16 +53,21 @@ jobs:
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
-          file: ./Dockerfile
+          file: ./Dockerfile_${{ matrix.type }}
           platforms: linux/${{ matrix.arch }}
           push: ${{ github.event_name != 'pull_request' }}
           provenance: false
           tags: |
-            ghcr.io/maki8maki/zenn-docker:latest-${{ matrix.arch }}
-            ghcr.io/maki8maki/zenn-docker:${{ env.IMAGE_VERSION }}-${{ matrix.arch }}
+            ghcr.io/maki8maki/zenn-docker:latest-${{ matrix.type }}-${{ matrix.arch }}
+            ghcr.io/maki8maki/zenn-docker:${{ env.IMAGE_VERSION }}-${{ matrix.type }}-${{ matrix.arch }}
 
   manifest:
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        type:
+          - simple
+          - textlint
     needs: build
     if: ${{ github.event_name != 'pull_request' }}
     steps:
@@ -84,8 +92,8 @@ jobs:
       - name: Create and push manifest images to ghcr.io
         uses: Noelware/docker-manifest-action@0.4.2
         with:
-          inputs: ghcr.io/maki8maki/zenn-docker:latest,ghcr.io/maki8maki/zenn-docker:${{ env.IMAGE_VERSION }}
-          images: ghcr.io/maki8maki/zenn-docker:latest-amd64,ghcr.io/maki8maki/zenn-docker:latest-arm64
+          inputs: ghcr.io/maki8maki/zenn-docker:latest-${{ matrix.type }},ghcr.io/maki8maki/zenn-docker:${{ env.IMAGE_VERSION }}-${{ matrix.type }}
+          images: ghcr.io/maki8maki/zenn-docker:latest-${{ matrix.type }}-amd64,ghcr.io/maki8maki/zenn-docker:latest-${{ matrix.type }}-arm64
           push: true
       - name: Create GitHub Releases
         env:
