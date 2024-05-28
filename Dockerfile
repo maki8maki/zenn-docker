@@ -5,7 +5,7 @@ ENV NODE_PATH /opt/node_modules
 WORKDIR /workdir
 
 RUN apk update && \
-    apk add --no-cache git bash xclip
+    apk add --no-cache git bash
 
 RUN npm init --yes && \
     npm install -g zenn-cli@latest
