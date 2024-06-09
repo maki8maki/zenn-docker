@@ -1,3 +1,3 @@
-# Docker image for Zenn CLI
+# Docker Image for Zenn CLI
 
 Zenn CLIのインストールをしたDocker image
