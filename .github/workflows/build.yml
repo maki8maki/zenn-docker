@@ -84,8 +84,8 @@ jobs:
       - name: Create and push manifest images to ghcr.io
         uses: Noelware/docker-manifest-action@1.0.0
         with:
-          inputs: ghcr.io/maki8maki/zenn-docker:latest,ghcr.io/maki8maki/zenn-docker:${{ env.IMAGE_VERSION }}
-          tags: ghcr.io/maki8maki/zenn-docker:latest-amd64,ghcr.io/maki8maki/zenn-docker:latest-arm64
+          inputs: ghcr.io/maki8maki/zenn-docker:latest-amd64,ghcr.io/maki8maki/zenn-docker:latest-arm64
+          tags: ghcr.io/maki8maki/zenn-docker:latest,ghcr.io/maki8maki/zenn-docker:${{ env.IMAGE_VERSION }}
           push: true
       - name: Create GitHub Releases
         env:
