@@ -1,6 +1,6 @@
 FROM node:24-alpine
 
-ENV NODE_PATH /opt/node_modules
+ENV NODE_PATH=/opt/node_modules
 
 WORKDIR /workdir
 
